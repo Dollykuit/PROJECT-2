@@ -240,7 +240,20 @@ Create a new PHP file in your custom web root directory using the nano editor.
     }
     
     
+    
 
+<img width="960" alt="Screenshot 2022-02-02 043752" src="https://user-images.githubusercontent.com/98477745/152096076-63e3de5c-2809-4e32-910c-e6afe08a2ebd.png">
+
+We test and try to access the public ip address in the browser 
+
+    http://35.170.243.192/todo_list.php
+    
+    
+<img width="959" alt="Screenshot 2022-02-02 043533" src="https://user-images.githubusercontent.com/98477745/152096324-289e2d98-1a19-43c5-a622-96702565ea72.png">
+
+
+
+**COMPLETED**
 
 
             
