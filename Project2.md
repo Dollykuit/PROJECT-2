@@ -156,12 +156,96 @@ We used the below to activate the configuration by linking to the config file fr
    
    i accessed the page in my web browser by visiting my public IP address
   
-  http://35.170.243.192/info.php
+    http://35.170.243.192/info.php
 
 <img width="960" alt="php new" src="https://user-images.githubusercontent.com/98477745/152081377-0b7ba3e2-b935-4d84-a39a-fa97db34464d.png">
 
+###### Step 6 - Retreiving data from Mysql database with PHP
+
+connected to the Mysql console using the root account:
+
+       sudo mysql
+       
+  created a new database Dolly_kuit
   
+    CREATE DATABASE DOLLY_KUIT;
+    
+  Created a new user and granted the user full privileges on the new database created. We used '/mysql_native_password/' as default authentication method
+  
+    CREATE USER 'Dollykuit'@'% IDENTIFIED WITH mysql_native_password BY 'Yahoo419';
+    
+  Gave "Dollykuit" permission over the "DOLLY_KUIT" database:
+  
+    GRANT ALL ON DOLLY_KUIT.* TO 'Dollykuit'@'%';
+    
+  So we exited the sql session
+  
+  
+   <img width="960" alt="mysql grants" src="https://user-images.githubusercontent.com/98477745/152091474-c8be4b27-483b-4855-b419-34abcef11a80.png">
    
+   Tested to see if we can log in to the sql server with the user created and conffirmed if we could see the database created:
+   
+     mysql -u Dollykuit -p
+   
+   
+<img width="960" alt="show databases" src="https://user-images.githubusercontent.com/98477745/152091701-4616d8ed-7bc4-40a8-b826-00d76348221e.png">
+
+Then i created a to-do list table:
+
+    CREATE TABLE example_database.todo_list (
+    mysql>     item_id INT AUTO_INCREMENT,
+    mysql>     content VARCHAR(255),
+    mysql>     PRIMARY KEY(item_id)
+    mysql> );
+    
+
+<img width="960" alt="create to-do list" src="https://user-images.githubusercontent.com/98477745/152092020-9d93cacf-f729-4c75-a7d4-609741a899bd.png">
+
+Inserted a few rows of content in the todo_list table:
+
+     INSERT INTO DOLLY_KUIT.todo_list (content) VALUES ("I want to become a DevOps Engineer");
+
+     INSERT INTO DOLLY_KUIT.todo_list (content) VALUES ("I want to complete my DevOps project");
+     
+   <img width="925" alt="insert values" src="https://user-images.githubusercontent.com/98477745/152092670-8fcfc667-d15f-4d97-b916-9ee3bb923517.png">
+
+To confirm that the data was successfully saved to the table, we will run the below:
+
+            SELECT * FROM
+            DOLLY_KUIT.todo_list;
+
+
+<img width="948" alt="select from" src="https://user-images.githubusercontent.com/98477745/152093056-f382f704-8ef7-461d-886c-eb4964fe9a0b.png">
+
+Create a new PHP file in your custom web root directory using the nano editor.
+
+     nano /var/www/projectLEMP/todo_list.php
+     
+     <?php
+    $user = "example_user";
+    $password = "password";
+    $database = "example_database";
+    $table = "todo_list";
+
+    try {
+    $db = new PDO("mysql:host=localhost;dbname=$database", $user, $password);
+    echo "<h2>TODO</h2><ol>";
+    foreach($db->query("SELECT content FROM $table") as $row) {
+    echo "<li>" . $row['content'] . "</li>";
+    }
+    echo "</ol>";
+    } catch (PDOException $e) {
+    print "Error!: " . $e->getMessage() . "<br/>";
+    die();
+    }
+    
+    
+
+
+
+            
+    
+
 
 
     
